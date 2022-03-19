@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class='container mt-5'>
+  <!-- set up navbar at the top w logo and log in button -->
+  <div class="navbar">
+    <div class="navbar-brand">
+      <img src="..\static\assets\singlekey_logo.png" width="100">
+    </div>
+    <button class="btn btn-outline-primary">Log in</button>
+  </div>
+  <!-- container for form and submissions in main portion of page -->
+  <div class="form-container-index">
+    <!-- form  w title and input fields + submit button, included placeholders in input fields -->
+    <form method='POST'>
+        <div class="grey-text-header">Submit information</div>
+        <div class='row mt-3'>
+          <div class='col'>
+            <label class="grey-text">Applicant name</label><br>
+            <input name='name' class="input" placeholder="Applicant name">
+          </div>
+        </div>
+        <div class='row mt-3'>
+          <div class='col'>
+            <label class="grey-text">Email address</label><br>
+            <input name='email' class="input" placeholder="Email address">
+          </div>
+        </div>
+        <br>
+        {% csrf_token %}
+        <button type='supmit' class='btn btn-primary'>Submit</button>
+      </form>
+      <!-- show submissions if they exist -->
+      {% if results %}
+      <hr class="line"></hr>
+        <div class="grey-text-header">Submissions</div><br>
+        <!-- make table to show submissions -->
+        <div class="results-card">
+          <table class="table">
+              <thead>
+                <!-- table header row -->
+                  <tr>
+                      <th class="grey-text-header-table" scope="col">Applicant</th>
+                      <th class="grey-text-header-table" scope="col">Email</th>
+                      <th class="grey-text-header-table" scope="col">Status</th>
+                  </tr>
+              </thead>
+              <tbody>
+                <!-- table submission rows, iterate through results -->
+                {% for i in results %}
+                  <tr>
+                      <td class="grey-text-table-bold">{{ i.name }}</td>
+                      <td class="grey-text-table">{{ i.email }}</td>
+                      <td class="grey-text-table">Submitted</td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+        {% endif %}
+  </div>
+  <!-- container side cards, floats to right side -->
+  <div class="float-item">
+    <!-- Hello Alex side card with button, could be modified to show user's actual name -->
+    <div class="side-card">
+      <div class="gradient">
+        <div class="white-text-heading">Hello Alex</div>
+        <div class="white-text">Here is a quick summary of your activity so far. If you 
+          have any questions about your report feel free to book a call with us.
+        </div>
+        <div class="white-text">
+          <button class="btn btn-outline-primary-white">Book a call</button>
+        </div>
+      </div>
+    </div>
+    <br>
+      <!-- Rent Guarantee side card with button-->
+    <div class="side-card">
+      <div class="grey-text-heading-card">Rent Guarantee</div>
+        <div class="grey-text-card">Never miss a rent payment! Learn how our Rent Guarantee Program 
+          protects your property and rental income so you can take the risk out of renting.
+        </div>
+        <div class="white-text">
+          <button class="btn btn-outline-primary-grey">Start now</button>
+        </div>
+    </div>
+  </div>
+  <!-- footer with copyright statement -->
+  <div class="footer">
+    <div class="white-text-footer">
+      &#169; All rights reserved SingleKey 2021
+    </div>
+  </div>
+</div>
+{% endblock %}
